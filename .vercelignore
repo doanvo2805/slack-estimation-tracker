@@ -1,0 +1,17 @@
+# Playwright tests
+playwright.config.ts
+tests/
+test-results/
+playwright-report/
+
+# Test files
+*.spec.ts
+*.test.ts
+
+# Documentation
+*.md
+!README.md
+
+# Local env files (already excluded by default, but being explicit)
+.env.local
+.env*.local
