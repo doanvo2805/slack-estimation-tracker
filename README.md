@@ -2,6 +2,22 @@
 
 An AI-powered tool that automatically extracts estimation data from Slack threads and stores it in a searchable, editable database. Built with Next.js 14, Supabase, and Google Gemini AI.
 
+## Screenshots
+
+### Home Page - Estimation List
+![Home Page](./public/screenshots/home-page.png)
+*Browse all estimations with real-time search and advanced filtering options*
+
+### AI Extraction - Paste Slack Thread
+![Extract Page](./public/screenshots/extract-page.png)
+*Paste a Slack thread URL or content, and let AI extract the estimation data automatically*
+
+### AI Confidence Indicators
+![Confidence Indicators](./public/screenshots/confidence-indicators.png)
+*Review AI-extracted data with confidence scores - High confidence (green), Medium (yellow), Low (red)*
+
+---
+
 ## Features
 
 - **Automatic Slack Fetching**: Paste a Slack thread URL and automatically fetch the entire conversation (no manual copy-paste needed!)
@@ -268,6 +284,102 @@ The app will be live at your Vercel URL.
 ## License
 
 MIT License - feel free to use this project for your own purposes.
+
+## QA Testing & Bug Reports
+
+### Test Coverage Status
+
+The application has undergone comprehensive QA testing. Full details are available in `QA_BUG_REPORT.md`.
+
+**Overall Grade: B+ (Very Good)**
+
+### Testing Summary
+
+#### ✅ Tested Features:
+- Complete flow: Home → Extract → AI Processing → Save → Verify in Table
+- Edit flow with validation
+- Delete flow with cancellation and confirmation
+- Search functionality with real-time filtering
+- Advanced filtering (DS, LE, QA, Missing Estimations)
+- Slack URL auto-fetching
+- Manual thread paste fallback
+- Confidence indicators for AI-extracted data
+- Error handling for invalid inputs
+- Responsive UI across different screen sizes
+
+#### Known Issues:
+
+**🔴 Critical (2 bugs):**
+- Missing success message handler after editing estimations
+- Inefficient data fetching on edit page (loads all estimations instead of just one)
+
+**🟠 High (3 bugs):**
+- Weak validation on manual Slack thread input
+- No error handling for invalid/deleted estimation IDs
+- Race condition in delete dialog state management
+
+**🟡 Medium (4 bugs):**
+- Missing loading spinner on home page
+- External link validation could be more robust
+- No debouncing on search input (performance concern with large datasets)
+- Inconsistent error handling in Extract API
+
+**🟢 Low (3 bugs):**
+- Missing ARIA labels for accessibility
+- Missing keyboard navigation improvements
+- Potential memory leak in success message timeouts
+
+### Feature Verification
+
+| Feature | Status | Notes |
+|---------|--------|-------|
+| Slack URL Auto-Fetching | ✅ Working | Requires SLACK_BOT_TOKEN configured |
+| Manual Thread Paste | ✅ Working | Fallback when bot token not available |
+| AI Extraction (Gemini) | ✅ Working | Returns confidence scores for each field |
+| CRUD Operations | ✅ Working | Create, Read, Update, Delete all functional |
+| Search | ✅ Working | Real-time filtering across all fields |
+| Advanced Filters | ✅ Working | Filter by team or missing estimations |
+| Responsive Design | ✅ Working | Works on mobile, tablet, desktop |
+| Error Handling | ⚠️ Partial | Most cases covered, some edge cases need improvement |
+| Accessibility | ⚠️ Needs Work | Basic functionality present, ARIA labels missing |
+
+### Test Environment
+
+- **Framework:** Next.js 16.0.0
+- **Node Version:** 18+
+- **Database:** Supabase (PostgreSQL)
+- **Testing Tools:** Playwright (E2E tests available in `playwright.config.ts`)
+- **Test Date:** 2025-01-29
+
+### Running Tests
+
+```bash
+# Install Playwright (if not already installed)
+npm install --save-dev @playwright/test
+npx playwright install
+
+# Run E2E tests
+npm run test:e2e
+
+# Run with UI mode for debugging
+npm run test:e2e:ui
+```
+
+### Bug Fix Priority
+
+**Immediate (Recommended for next deployment):**
+1. Fix missing success message on edit page (BUG-001)
+2. Add GET endpoint for single estimation by ID (BUG-002)
+3. Fix delete dialog state management (BUG-005)
+
+**Next Sprint:**
+- Improve input validation (BUG-003)
+- Add search debouncing (BUG-008)
+- Better error handling for invalid IDs (BUG-004)
+
+For detailed bug descriptions, reproduction steps, and recommended fixes, see `QA_BUG_REPORT.md`.
+
+---
 
 ## Contributing
 
